@@ -71,6 +71,15 @@ insert into "some_models" ("code", "term") values
   returning "id";
 ```
 
+```php
+$some = SomeModel::find(1);
+
+echo $some->term->lower()->format('Y-m-d H:i:s'); // lower() or from()
+// => 2020-10-01 00:00:00
+echo $some->term->upper()->format('Y-m-d H:i:s'); // upper() or to()
+// => 2020-10-01 23:59:59
+```
+
 ### UPSERT (ON CONFLICT DO UPDATE)
 
 ```php
