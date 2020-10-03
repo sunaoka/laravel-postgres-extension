@@ -27,6 +27,8 @@ abstract class Range
     protected $lowerBound;
 
     /**
+     * Get lower bound
+     *
      * @return mixed
      */
     public function lower()
@@ -35,11 +37,33 @@ abstract class Range
     }
 
     /**
+     * Get upper bound
+     *
      * @return mixed
      */
     public function upper()
     {
         return $this->upper ? $this->transform($this->upper) : null;
+    }
+
+    /**
+     * Alias of lower()
+     *
+     * @return mixed
+     */
+    public function from()
+    {
+        return $this->lower();
+    }
+
+    /**
+     * Alias of upper()
+     *
+     * @return mixed
+     */
+    public function to()
+    {
+        return $this->upper();
     }
 
     /**
