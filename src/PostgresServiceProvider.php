@@ -20,4 +20,17 @@ class PostgresServiceProvider extends ServiceProvider
             return new PostgresConnection($connection, $database, $prefix, $config);
         });
     }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes(
+            [__DIR__ . '/../config/postgres.php' => config_path('postgres-extention.php')],
+            'postgres-extention'
+        );
+    }
 }
