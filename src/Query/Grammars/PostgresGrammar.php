@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Query\Grammars;
 
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 
 class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGrammar
 {
@@ -40,6 +42,28 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
         $sql .= " {$this->compileReturning($query)}";
 
         return trim($sql);
+    }
+
+    /**
+     * Prepare the bindings for an update statement.
+     *
+     * @param  array  $bindings
+     * @param  array  $values
+     * @return array
+     */
+    public function prepareBindingsForUpdate(array $bindings, array $values)
+    {
+        $values = collect($values)->map(function ($value, $column) {
+            return is_array($value) || ($this->isJsonSelector($column) && ! $this->isExpression($value))
+                ? json_encode($value, Config::get('postgres-extension.json_encode_options'))
+                : $value;
+        })->all();
+
+        $cleanBindings = Arr::except($bindings, 'select');
+
+        return array_values(
+            array_merge($values, Arr::flatten($cleanBindings))
+        );
     }
 
     /**
