@@ -29,8 +29,8 @@ class PostgresServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes(
-            [__DIR__ . '/../config/postgres.php' => config_path('postgres-extention.php')],
-            'postgres-extention'
+            [__DIR__ . '/../config/postgres.php' => config_path('postgres-extension.php')],
+            'postgres-extension'
         );
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "sunaoka/laravel-postgres-extention",
+    "name": "sunaoka/laravel-postgres-extension",
     "description": "Extended PostgreSQL driver for Laravel.",
     "keywords": ["laravel", "PostgreSQL", "Eloquent", "Model", "driver"],
     "type": "library",
