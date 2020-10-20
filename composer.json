@@ -1,5 +1,5 @@
 {
-    "name": "sunaoka/laravel-postgres-extention",
+    "name": "sunaoka/laravel-postgres-extension",
     "description": "Extended PostgreSQL driver for Laravel.",
     "keywords": ["laravel", "PostgreSQL", "Eloquent", "Model", "driver"],
     "type": "library",
@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
         "illuminate/database": "^8.0"
     },
     "require-dev": {
@@ -37,6 +38,8 @@
         }
     },
     "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
         "sort-packages": true
     },
     "minimum-stability": "dev",

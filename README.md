@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-composer require sunaoka/laravel-postgres-extention
+composer require sunaoka/laravel-postgres-extension
 ```
 
 ## Features

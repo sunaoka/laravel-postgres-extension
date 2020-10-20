@@ -41,22 +41,8 @@ abstract class RangeCast implements CastsAttributes
     public function set($model, string $key, $value, array $attributes)
     {
         return [
-            $key => $this->serialize($value),
+            $key => ($value !== null) ? (string)$value : null,
         ];
-    }
-
-    /**
-     * @param Range|null $range
-     *
-     * @return string|null
-     */
-    protected function serialize(?Range $range): ?string
-    {
-        if ($range === null) {
-            return null;
-        }
-
-        return (string)$range;
     }
 
     /**
