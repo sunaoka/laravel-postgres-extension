@@ -71,27 +71,4 @@ class Builder extends \Illuminate\Database\Query\Builder
 
         return $this->connection->select($query, $bindings);
     }
-
-    /**
-     * Upsert records in the database.
-     *
-     * @param array $values
-     * @param array $columns
-     *
-     * @return array|bool
-     */
-    public function upsert(array $values, array $columns)
-    {
-        $query = $this->grammar->compileUpsert($this, $values, $columns);
-
-        $bindings = $this->cleanBindings(
-            $this->grammar->prepareBindingsForUpsert($this->bindings, $values)
-        );
-
-        if (empty($this->returning)) {
-            return $this->connection->insert($query, $bindings);
-        }
-
-        return $this->connection->select($query, $bindings);
-    }
 }

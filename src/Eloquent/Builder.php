@@ -10,23 +10,6 @@ namespace Sunaoka\LaravelPostgres\Eloquent;
 class Builder extends \Illuminate\Database\Eloquent\Builder
 {
     /**
-     * @param array $values
-     * @param array $columns
-     *
-     * @return bool|\Illuminate\Database\Eloquent\Collection
-     */
-    public function upsert(array $values, array $columns)
-    {
-        $result = $this->toBase()->upsert($this->addUpdatedAtColumn($values), $columns);
-        if (empty($this->toBase()->returning)) {
-            return $result;
-        }
-
-        /** @var array $result */
-        return !empty($result) ? $this->hydrate($result) : null;
-    }
-
-    /**
      * Update records in the database.
      *
      * @param  array  $values
