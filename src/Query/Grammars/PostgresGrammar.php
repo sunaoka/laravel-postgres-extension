@@ -79,22 +79,4 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
 
         return trim($sql);
     }
-
-    /**
-     * Removes the table name from the column name.
-     *
-     * "table"."updated_at" to "updated_at"
-     *
-     * @param  array  $values
-     * @return array
-     */
-    protected function cleanColumns(array $values): array
-    {
-        $result = [];
-        foreach ($values as $column => $value) {
-            $column = last(explode('.', $column));
-            $result[$column] = $value;
-        }
-        return $result;
-    }
 }
