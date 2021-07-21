@@ -62,4 +62,19 @@ class PostgresGrammarTest extends TestCase
 
         self::assertSame($expected, $actual);
     }
+
+    public function testPrepareBindingsForUpdate(): void
+    {
+        $builder = DB::table((new TestModel())->getTable());
+
+        $actual = $builder->getGrammar()->prepareBindingsForUpdate(
+            $builder->getRawBindings(),
+            [
+                'a' => 1,
+                'b' => [2],
+            ],
+        );
+
+        self::assertSame([1, '[2]'], $actual);
+    }
 }
