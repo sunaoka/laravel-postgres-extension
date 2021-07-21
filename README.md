@@ -16,8 +16,6 @@ composer require sunaoka/laravel-postgres-extension
     - [ ] tstzrange — Range of timestamp with time zone
     - [ ] daterange — Range of date
 
-- [x] ~~UPSERT (ON CONFLICT DO UPDATE)~~
-
 - [x] RETURNING
     - UPDATE
     - DELETE
@@ -78,29 +76,6 @@ echo $some->term->lower()->format('Y-m-d H:i:s'); // lower() or from()
 // => 2020-10-01 00:00:00
 echo $some->term->upper()->format('Y-m-d H:i:s'); // upper() or to()
 // => 2020-10-01 23:59:59
-```
-
-### ~~UPSERT (ON CONFLICT DO UPDATE)~~
-
-Laravel 8.10.0 adds support for upsert.
-
-```php
-$result = SomeModel::upsert([
-    'code' => 'some code',
-    'term' => new TsRange('2020-08-01 00:00:00', '2020-08-01 23:59:59'),
-], [
-    'code',
-]);
-
-echo $result;
-// => true or false
-```
-
-```sql
-insert into "some_models" ("code", "term") values 
-  ('some code', '[2020-08-01 00:00:00,2020-08-01 23:59:59)') 
-  on conflict ("code") do update
-  set "code" = 'some code', "term" = '[2020-08-01 00:00:00,2020-08-01 23:59:59)';
 ```
 
 ### RETURNING
