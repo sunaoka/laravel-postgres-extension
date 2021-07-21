@@ -33,97 +33,115 @@ class QueryBuilderTest extends TestCase
 
     public function testUpdate(): void
     {
+        $x = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('update')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?', $query);
-                self::assertSame([1], $bindings);
+                self::assertSame([$x], $bindings);
                 return true;
             })
-            ->andReturn(1);
+            ->andReturn($expected);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->update(['x' => 1]);
+        $actual = $builder->from('tests')->update(['x' => $x]);
 
-        self::assertSame(1, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testUpdateWithReturning(): void
     {
+        $x = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('select')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ? returning *', $query);
-                self::assertSame([1], $bindings);
+                self::assertSame([$x], $bindings);
                 return true;
             })
-            ->andReturn(['id' => 1]);
+            ->andReturn(['id' => $expected]);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->returning(['*'])->update(['x' => 1]);
+        $actual = $builder->from('tests')->returning(['*'])->update(['x' => $x]);
 
-        self::assertSame(['id' => 1], $actual);
+        self::assertSame($expected, $actual['id']);
     }
 
     public function testDelete(): void
     {
+        $x = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('delete')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
-                self::assertSame([1], $bindings);
+                self::assertSame([$x], $bindings);
                 return true;
             })
-            ->andReturn(1);
+            ->andReturn($expected);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->where('x', 1)->delete();
+        $actual = $builder->from('tests')->where('x', $x)->delete();
 
-        self::assertSame(1, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testDeleteWithId(): void
     {
+        $id = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('delete')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($id) {
                 self::assertSame('delete from "tests" where "tests"."id" = ?', $query);
-                self::assertSame([1], $bindings);
+                self::assertSame([$id], $bindings);
                 return true;
             })
-            ->andReturn(1);
+            ->andReturn($expected);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->delete(1);
+        $actual = $builder->from('tests')->delete($id);
 
-        self::assertSame(1, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testDeleteWithReturning(): void
     {
+        $x = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('select')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
-                self::assertSame([1], $bindings);
+                self::assertSame([$x], $bindings);
                 return true;
             })
-            ->andReturn(['id' => 1]);
+            ->andReturn(['id' => $expected]);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->where('x', 1)->returning(['*'])->delete();
+        $actual = $builder->from('tests')->where('x', $x)->returning(['*'])->delete();
 
-        self::assertSame(['id' => 1], $actual);
+        self::assertSame($expected, $actual['id']);
     }
 
     public function testDeleteWithIdAndReturning(): void
     {
+        $x = 10;
+        $expected = 1;
+
         $this->connection->shouldReceive('select')
-            ->withArgs(function ($query, $bindings) {
+            ->withArgs(function ($query, $bindings) use ($x, $expected) {
                 self::assertSame('delete from "tests" where "x" = ? and "tests"."id" = ? returning *', $query);
-                self::assertSame([1, 2], $bindings);
+                self::assertSame([$x, $expected], $bindings);
                 return true;
             })
-            ->andReturn(['id' => 1]);
+            ->andReturn(['id' => $expected]);
 
         $builder = new Builder($this->connection, new PostgresGrammar());
-        $actual = $builder->from('tests')->where('x', 1)->returning(['*'])->delete(2);
+        $actual = $builder->from('tests')->where('x', $x)->returning(['*'])->delete($expected);
 
-        self::assertSame(['id' => 1], $actual);
+        self::assertSame($expected, $actual['id']);
     }
 }
