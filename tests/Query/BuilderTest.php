@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelPostgres\Tests;
+namespace Sunaoka\LaravelPostgres\Tests\Query;
 
 use Mockery;
 use Sunaoka\LaravelPostgres\PostgresConnection;
 use Sunaoka\LaravelPostgres\Query\Builder;
 use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
+use Sunaoka\LaravelPostgres\Tests\TestCase;
 
-class QueryBuilderTest extends TestCase
+class BuilderTest extends TestCase
 {
     /**
      * @var Mockery\Mock|PostgresConnection

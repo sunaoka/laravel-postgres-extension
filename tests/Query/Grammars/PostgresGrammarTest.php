@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelPostgres\Tests;
+namespace Sunaoka\LaravelPostgres\Tests\Query\Grammars;
 
 use Illuminate\Support\Facades\DB;
 use Sunaoka\LaravelPostgres\Tests\Models\TestModel;
+use Sunaoka\LaravelPostgres\Tests\TestCase;
 
 class PostgresGrammarTest extends TestCase
 {

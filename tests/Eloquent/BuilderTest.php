@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelPostgres\Tests;
+namespace Sunaoka\LaravelPostgres\Tests\Eloquent;
 
 use Carbon\Carbon;
 use Mockery;
@@ -11,8 +11,9 @@ use Sunaoka\LaravelPostgres\PostgresConnection;
 use Sunaoka\LaravelPostgres\Query\Builder as QueryBuilder;
 use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
 use Sunaoka\LaravelPostgres\Tests\Models\TestModel;
+use Sunaoka\LaravelPostgres\Tests\TestCase;
 
-class EloquentBuilderTest extends TestCase
+class BuilderTest extends TestCase
 {
     private const NOW = '2021-07-21 19:38:17';
 
