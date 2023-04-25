@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Eloquent;
 
 /**
+ * @template TModelClass of \Sunaoka\LaravelPostgres\Eloquent\Model
+ * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ *
  * @method \Sunaoka\LaravelPostgres\Query\Builder toBase()
  */
 class Builder extends \Illuminate\Database\Eloquent\Builder
@@ -13,7 +16,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
      * Update records in the database.
      *
      * @param  array  $values
-     * @return int|\Illuminate\Database\Eloquent\Collection
+     * @return int|\Illuminate\Database\Eloquent\Collection<TModelClass>
      */
     public function update(array $values)
     {

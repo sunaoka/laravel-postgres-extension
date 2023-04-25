@@ -21,6 +21,7 @@ class PostgresBuilder extends \Illuminate\Database\Schema\PostgresBuilder
             return parent::getColumnListing($table);
         }
 
+        /** @var array */
         return Cache::rememberForever(
             __METHOD__ . $table,
             function () use ($table) {
