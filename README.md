@@ -15,6 +15,12 @@
 composer require sunaoka/laravel-postgres-extension
 ```
 
+## Configurations
+
+```bash
+php artisan vendor:publish --tag=postgres-extension
+```
+
 ## Features
 
 - Range Types
