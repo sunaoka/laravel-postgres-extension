@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Tests;
 
+use Illuminate\Support\Facades\Config;
 use ReflectionException;
 use ReflectionMethod;
 use Sunaoka\LaravelPostgres\Connectors\PostgresConnector;
@@ -22,6 +23,14 @@ class PostgresConnectorTest extends TestCase
             'database' => 'forge',
         ]);
 
-        self::assertSame("pgsql:dbname='forge';application_name='Laravel extended PostgreSQL driver'", $actual);
+        self::assertSame("pgsql:dbname='forge'", $actual);
+
+        Config::set('postgres-extension.additional_dns_string', ";application_name='Laravel'");
+
+        $actual = $method->invoke(new PostgresConnector(), [
+            'database' => 'forge',
+        ]);
+
+        self::assertSame("pgsql:dbname='forge';application_name='Laravel'", $actual);
     }
 }
