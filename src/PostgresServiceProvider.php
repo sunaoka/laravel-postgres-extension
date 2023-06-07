@@ -6,6 +6,7 @@ namespace Sunaoka\LaravelPostgres;
 
 use Illuminate\Database\Connection;
 use Illuminate\Support\ServiceProvider;
+use Sunaoka\LaravelPostgres\Connectors\PostgresConnector;
 
 class PostgresServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,8 @@ class PostgresServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/postgres-extension.php', 'postgres-extension'
         );
+
+        $this->app->bind('db.connector.pgsql', PostgresConnector::class);
 
         Connection::resolverFor('pgsql', function ($connection, $database, $prefix, $config) {
             return new PostgresConnection($connection, $database, $prefix, $config);
