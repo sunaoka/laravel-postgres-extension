@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Types;
 
+/**
+ * @template T
+ */
 abstract class Range
 {
     /**
@@ -29,7 +32,7 @@ abstract class Range
     /**
      * Get lower bound
      *
-     * @return mixed
+     * @return T|null
      */
     public function lower()
     {
@@ -39,7 +42,7 @@ abstract class Range
     /**
      * Get upper bound
      *
-     * @return mixed
+     * @return T|null
      */
     public function upper()
     {
@@ -49,7 +52,7 @@ abstract class Range
     /**
      * Alias of lower()
      *
-     * @return mixed
+     * @return T|null
      */
     public function from()
     {
@@ -59,7 +62,7 @@ abstract class Range
     /**
      * Alias of upper()
      *
-     * @return mixed
+     * @return T|null
      */
     public function to()
     {
@@ -68,7 +71,7 @@ abstract class Range
 
     /**
      * @param  string  $boundary
-     * @return mixed
+     * @return T
      */
     abstract protected function transform(string $boundary);
 

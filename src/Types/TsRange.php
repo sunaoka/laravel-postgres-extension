@@ -6,10 +6,14 @@ namespace Sunaoka\LaravelPostgres\Types;
 
 use Carbon\CarbonImmutable;
 
+/**
+ * @extends Range<CarbonImmutable>
+ */
 class TsRange extends Range
 {
     /**
-     * @param  string  $boundary
+     * @param string $boundary
+     *
      * @return CarbonImmutable
      */
     protected function transform(string $boundary): CarbonImmutable

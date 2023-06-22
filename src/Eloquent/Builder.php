@@ -9,6 +9,7 @@ namespace Sunaoka\LaravelPostgres\Eloquent;
  * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
  *
  * @method \Sunaoka\LaravelPostgres\Query\Builder toBase()
+ * @mixin \Sunaoka\LaravelPostgres\Query\Builder
  */
 class Builder extends \Illuminate\Database\Eloquent\Builder
 {
@@ -16,7 +17,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
      * Update records in the database.
      *
      * @param  array  $values
-     * @return int|\Illuminate\Database\Eloquent\Collection<TModelClass>
+     * @return int|\Illuminate\Database\Eloquent\Collection<int, TModelClass>|null
      */
     public function update(array $values)
     {

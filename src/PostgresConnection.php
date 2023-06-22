@@ -28,7 +28,7 @@ class PostgresConnection extends \Illuminate\Database\PostgresConnection
      */
     public function getSchemaBuilder()
     {
-        if (is_null($this->schemaGrammar)) {
+        if ($this->schemaGrammar === null) {
             $this->useDefaultSchemaGrammar();
         }
 

@@ -13,6 +13,9 @@ class TsRangeTest extends TestCase
     {
         $tsRange = new TsRange('2020-10-01 00:00:00', '2020-10-01 23:59:59', '(', ']');
 
+        self::assertNotNull($tsRange->from());
+        self::assertNotNull($tsRange->to());
+
         self::assertSame('2020-10-01 00:00:00', $tsRange->from()->format('Y-m-d H:i:s'));
         self::assertSame('2020-10-01 23:59:59', $tsRange->to()->format('Y-m-d H:i:s'));
 

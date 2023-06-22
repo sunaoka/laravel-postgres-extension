@@ -54,8 +54,10 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     public function prepareBindingsForUpdate(array $bindings, array $values)
     {
         $values = collect($values)->map(function ($value, $column) {
+            /** @var int $flags */
+            $flags = Config::get('postgres-extension.json_encode_options');
             return is_array($value) || ($this->isJsonSelector($column) && ! $this->isExpression($value))
-                ? json_encode($value, Config::get('postgres-extension.json_encode_options'))
+                ? json_encode($value, $flags)
                 : $value;
         })->all();
 

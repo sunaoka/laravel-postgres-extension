@@ -13,7 +13,7 @@ class TsRangeCastTest extends TestCase
     public function testSet(): void
     {
         $cast = new TsRangeCast();
-        $actual = $cast->set(TestModel::make(), 'term', '[2020-10-01 00:00:00,2020-10-01 23:59:59)', []);
+        $actual = $cast->set(new TestModel(), 'term', '[2020-10-01 00:00:00,2020-10-01 23:59:59)', []);
 
         self::assertSame('[2020-10-01 00:00:00,2020-10-01 23:59:59)', $actual['term']);
     }
@@ -21,11 +21,11 @@ class TsRangeCastTest extends TestCase
     public function testGet(): void
     {
         $cast = new TsRangeCast();
-        $actual = $cast->get(TestModel::make(), 'term', '[2020-10-01 00:00:00,2020-10-01 23:59:59)', []);
+        $actual = $cast->get(new TestModel(), 'term', '[2020-10-01 00:00:00,2020-10-01 23:59:59)', []);
 
         self::assertSame('[2020-10-01 00:00:00,2020-10-01 23:59:59)', (string)$actual);
 
-        $actual = $cast->get(TestModel::make(), 'term', '', []);
+        $actual = $cast->get(new TestModel(), 'term', '', []);
 
         self::assertNull($actual);
     }

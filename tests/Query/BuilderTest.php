@@ -13,7 +13,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 class BuilderTest extends TestCase
 {
     /**
-     * @var Mockery\Mock|PostgresConnection
+     * @var Mockery\MockInterface|PostgresConnection
      */
     private $connection;
 
@@ -67,6 +67,7 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->connection, new PostgresGrammar());
         $actual = $builder->from('tests')->returning(['*'])->update(['x' => $x]);
 
+        /** @var array $actual */
         self::assertSame($expected, $actual['id']);
     }
 
@@ -124,6 +125,7 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->connection, new PostgresGrammar());
         $actual = $builder->from('tests')->where('x', $x)->returning(['*'])->delete();
 
+        /** @var array $actual */
         self::assertSame($expected, $actual['id']);
     }
 
@@ -143,6 +145,7 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->connection, new PostgresGrammar());
         $actual = $builder->from('tests')->where('x', $x)->returning(['*'])->delete($expected);
 
+        /** @var array $actual */
         self::assertSame($expected, $actual['id']);
     }
 }

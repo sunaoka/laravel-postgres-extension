@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Tests\Query\Grammars;
 
 use Illuminate\Support\Facades\DB;
+use Sunaoka\LaravelPostgres\Query\Builder;
 use Sunaoka\LaravelPostgres\Tests\Models\TestModel;
 use Sunaoka\LaravelPostgres\Tests\TestCase;
 
@@ -12,6 +13,7 @@ class PostgresGrammarTest extends TestCase
 {
     public function testCompileUpdate(): void
     {
+        /** @var Builder $builder */
         $builder = DB::table((new TestModel())->getTable());
 
         $actual = $builder->getGrammar()->compileUpdate(
@@ -26,6 +28,7 @@ class PostgresGrammarTest extends TestCase
 
     public function testCompileUpdateWithoutReturning(): void
     {
+        /** @var Builder $builder */
         $builder = DB::table((new TestModel())->getTable());
 
         $actual = $builder->getGrammar()->compileUpdate(
@@ -40,6 +43,7 @@ class PostgresGrammarTest extends TestCase
 
     public function testCompileDelete(): void
     {
+        /** @var Builder $builder */
         $builder = DB::table((new TestModel())->getTable());
 
         $actual = $builder->getGrammar()->compileDelete(
@@ -53,6 +57,7 @@ class PostgresGrammarTest extends TestCase
 
     public function testCompileDeleteWithoutReturning(): void
     {
+        /** @var Builder $builder */
         $builder = DB::table((new TestModel())->getTable());
 
         $actual = $builder->getGrammar()->compileDelete(
@@ -66,6 +71,7 @@ class PostgresGrammarTest extends TestCase
 
     public function testPrepareBindingsForUpdate(): void
     {
+        /** @var Builder $builder */
         $builder = DB::table((new TestModel())->getTable());
 
         $actual = $builder->getGrammar()->prepareBindingsForUpdate(
