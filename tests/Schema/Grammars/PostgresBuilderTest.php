@@ -15,7 +15,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 class PostgresBuilderTest extends TestCase
 {
     /**
-     * @var Mockery\Mock|PostgresConnection
+     * @var Mockery\MockInterface|PostgresConnection
      */
     private $connection;
 

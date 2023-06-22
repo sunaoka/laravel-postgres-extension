@@ -16,6 +16,10 @@ trait HasAttributes
      */
     protected function asJson($value)
     {
-        return json_encode($value, Config::get('postgres-extension.json_encode_options'));
+        /** @var int $flags */
+        $flags = Config::get('postgres-extension.json_encode_options');
+
+        /** @var string */
+        return json_encode($value, $flags);
     }
 }

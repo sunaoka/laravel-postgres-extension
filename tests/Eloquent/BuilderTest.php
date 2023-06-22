@@ -18,7 +18,7 @@ class BuilderTest extends TestCase
     private const NOW = '2021-07-21 19:38:17';
 
     /**
-     * @var Mockery\Mock|PostgresConnection
+     * @var Mockery\MockInterface|PostgresConnection
      */
     private $connection;
 
@@ -45,7 +45,7 @@ class BuilderTest extends TestCase
             ->andReturn($expected);
 
         $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
-        $builder->setModel(TestModel::make());
+        $builder->setModel(new TestModel());
         $actual = $builder->update(['x' => $x]);
 
         self::assertSame($expected, $actual);
@@ -65,7 +65,9 @@ class BuilderTest extends TestCase
             ->andReturn([['id' => $expected]]);
 
         $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
-        $builder->setModel(TestModel::make());
+        $builder->setModel(new TestModel());
+
+        /** @var \Illuminate\Database\Eloquent\Collection<int, TestModel> $actual */
         $actual = $builder->returning(['*'])->update(['x' => $x]);
 
         $model = $actual->first();
@@ -89,7 +91,7 @@ class BuilderTest extends TestCase
             ->andReturn($expected);
 
         $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
-        $builder->setModel(TestModel::make());
+        $builder->setModel(new TestModel());
         $actual = $builder->where('x', $x)->delete();
 
         self::assertSame($expected, $actual);
@@ -109,7 +111,8 @@ class BuilderTest extends TestCase
             ->andReturn([['id' => $expected]]);
 
         $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
-        $builder->setModel(TestModel::make());
+        $builder->setModel(new TestModel());
+        /** @var \Illuminate\Database\Eloquent\Collection<int, TestModel> $actual */
         $actual = $builder->returning(['*'])->where('x', $x)->delete();
 
         $model = $actual->first();

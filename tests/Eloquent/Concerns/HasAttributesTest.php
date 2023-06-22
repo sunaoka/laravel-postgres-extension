@@ -11,7 +11,7 @@ class HasAttributesTest extends TestCase
 {
     public function testAsJson(): void
     {
-        $model = TestModel::make(['json' => ['a' => 1]]);
+        $model = new TestModel(['json' => ['a' => 1]]);
 
         self::assertSame(['a' => 1], $model->json);
         self::assertSame('{"a":1}', $model->getAttributes()['json']);
