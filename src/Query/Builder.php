@@ -33,6 +33,8 @@ class Builder extends \Illuminate\Database\Query\Builder
      */
     public function update(array $values)
     {
+        $this->applyBeforeQueryCallbacks();
+
         $sql = $this->grammar->compileUpdate($this, $values);
         $bindings = $this->cleanBindings(
             $this->grammar->prepareBindingsForUpdate($this->bindings, $values)
@@ -59,6 +61,8 @@ class Builder extends \Illuminate\Database\Query\Builder
         if (! is_null($id)) {
             $this->where($this->from.'.id', '=', $id);
         }
+
+        $this->applyBeforeQueryCallbacks();
 
         $query = $this->grammar->compileDelete($this);
         $bindings = $this->cleanBindings(
