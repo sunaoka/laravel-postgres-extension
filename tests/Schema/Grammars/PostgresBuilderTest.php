@@ -37,9 +37,13 @@ class PostgresBuilderTest extends TestCase
 
         if (version_compare(app()->version(), '10.30.0') >= 0) {
             /**
-             * Add support for getting native columns' attributes
+             * [10.x] Get columns of a table
              *
              * @link https://github.com/laravel/framework/pull/48357
+             *
+             * [11.x] Add support for modifying generated columns
+             *
+             * @link https://github.com/laravel/framework/pull/50329
              */
             $columns = [
                 (object) [
@@ -50,6 +54,7 @@ class PostgresBuilderTest extends TestCase
                     'nullable'  => false,
                     'default'   => null,
                     'comment'   => null,
+                    'generated' => null,
                 ],
                 (object) [
                     'name'      => 'x',
@@ -59,6 +64,7 @@ class PostgresBuilderTest extends TestCase
                     'nullable'  => false,
                     'default'   => null,
                     'comment'   => null,
+                    'generated' => null,
                 ],
             ];
         } else {
