@@ -9,8 +9,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
     use Concerns\HasAttributes;
 
     /**
-     * @param \Sunaoka\LaravelPostgres\Query\Builder $query
-     *
+     * @param  \Sunaoka\LaravelPostgres\Query\Builder  $query
      * @return \Sunaoka\LaravelPostgres\Eloquent\Builder<\Sunaoka\LaravelPostgres\Eloquent\Model>
      */
     public function newEloquentBuilder($query)

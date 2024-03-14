@@ -70,20 +70,14 @@ abstract class Range
     }
 
     /**
-     * @param  string  $boundary
      * @return T
      */
     abstract protected function transform(string $boundary);
 
     /**
      * TsRange constructor.
-     *
-     * @param string|null  $lower
-     * @param string|null  $upper
-     * @param string       $lowerBound
-     * @param string       $upperBound
      */
-    public function __construct(string $lower = null, string $upper = null, string $lowerBound = '[', string $upperBound = ')')
+    public function __construct(?string $lower = null, ?string $upper = null, string $lowerBound = '[', string $upperBound = ')')
     {
         $this->lower = $lower ?: null;
         $this->upper = $upper ?: null;

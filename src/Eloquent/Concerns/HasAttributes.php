@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Eloquent\Concerns;
 
-use Illuminate\Support\Facades\Config;
-
 trait HasAttributes
 {
     /**
@@ -17,7 +15,7 @@ trait HasAttributes
     protected function asJson($value)
     {
         /** @var int $flags */
-        $flags = Config::get('postgres-extension.json_encode_options');
+        $flags = config('postgres-extension.json_encode_options');
 
         /** @var string */
         return json_encode($value, $flags);

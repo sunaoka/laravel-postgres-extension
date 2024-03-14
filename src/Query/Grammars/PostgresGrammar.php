@@ -6,14 +6,12 @@ namespace Sunaoka\LaravelPostgres\Query\Grammars;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 
 class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGrammar
 {
     /**
      * Compile a returning clause.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
     public function compileReturning(Builder $query)
@@ -23,6 +21,7 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
             $returning = collect($query->returning)->map(function ($value) {
                 return $this->wrap($value);
             })->implode(', ');
+
             return "returning {$returning}";
         }
 
@@ -32,8 +31,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Compile an update statement into SQL.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  array  $values
      * @return string
      */
     public function compileUpdate(Builder $query, array $values)
@@ -47,17 +44,13 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Prepare the bindings for an update statement.
      *
-     * @param  array  $bindings
-     * @param  array  $values
      * @return array
      */
     public function prepareBindingsForUpdate(array $bindings, array $values)
     {
         $values = collect($values)->map(function ($value, $column) {
-            /** @var int $flags */
-            $flags = Config::get('postgres-extension.json_encode_options');
             return is_array($value) || ($this->isJsonSelector($column) && ! $this->isExpression($value))
-                ? json_encode($value, $flags)
+                ? json_encode($value, (int) config('postgres-extension.json_encode_options'))  // @phpstan-ignore cast.int
                 : $value;
         })->all();
 
@@ -71,7 +64,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Compile a delete statement into SQL.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
     public function compileDelete(Builder $query)

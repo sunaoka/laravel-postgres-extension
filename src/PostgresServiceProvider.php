@@ -18,7 +18,7 @@ class PostgresServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/postgres-extension.php', 'postgres-extension'
+            __DIR__.'/../config/postgres-extension.php', 'postgres-extension'
         );
 
         $this->app->bind('db.connector.pgsql', PostgresConnector::class);
@@ -36,7 +36,7 @@ class PostgresServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/postgres-extension.php' => config_path('postgres-extension.php'),
+            __DIR__.'/../config/postgres-extension.php' => config_path('postgres-extension.php'),
         ], 'postgres-extension');
     }
 }
