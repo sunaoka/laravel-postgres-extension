@@ -35,9 +35,31 @@ class Builder extends \Illuminate\Database\Query\Builder
     {
         $this->applyBeforeQueryCallbacks();
 
-        $sql = $this->grammar->compileUpdate($this, $values);
+        /**
+         * [11.x] Allow an update query to have subqueries as values
+         *
+         * @link https://github.com/laravel/framework/pull/50030
+         */
+        $values = collect($values)->map(function ($value) {
+            if (! $value instanceof Builder) {
+                return ['value' => $value, 'bindings' => $value];
+            }
+
+            [$query, $bindings] = $this->parseSub($value);
+
+            return ['value' => new Expression("({$query})"), 'bindings' => function () use ($bindings) {
+                return $bindings;
+            }];
+        });
+
+        $sql = $this->grammar->compileUpdate($this, $values->map(function ($value) {
+            return $value['value'];
+        })->all());
+
         $bindings = $this->cleanBindings(
-            $this->grammar->prepareBindingsForUpdate($this->bindings, $values)
+            $this->grammar->prepareBindingsForUpdate($this->bindings, $values->map(function ($value) {
+                return $value['bindings'];
+            })->all())
         );
 
         if (empty($this->returning)) {
