@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Schema;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 
 class PostgresBuilder extends \Illuminate\Database\Schema\PostgresBuilder
 {
@@ -17,7 +16,7 @@ class PostgresBuilder extends \Illuminate\Database\Schema\PostgresBuilder
      */
     public function getColumnListing($table)
     {
-        if (Config::get('postgres-extension.information_schema_caching') !== true) {
+        if (config('postgres-extension.information_schema_caching') !== true) {
             return parent::getColumnListing($table);
         }
 

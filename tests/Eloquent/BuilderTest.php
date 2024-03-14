@@ -47,7 +47,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('update')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('update')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ?', $query);
                 self::assertSame([$x, self::NOW], $bindings);
@@ -67,7 +70,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ? returning *', $query);
                 self::assertSame([$x, self::NOW], $bindings);
@@ -93,7 +99,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('delete')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('delete')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
                 self::assertSame([$x], $bindings);
@@ -113,7 +122,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
                 self::assertSame([$x], $bindings);

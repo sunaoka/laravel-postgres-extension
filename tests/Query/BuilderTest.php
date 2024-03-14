@@ -38,7 +38,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('update')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('update')
             ->once()
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?', $query);
@@ -58,7 +61,10 @@ class BuilderTest extends TestCase
         $type = 'foo';
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('update')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('update')
             ->once()
             ->withArgs(function ($query, $bindings) use ($id, $type) {
                 self::assertSame('update "users" set "credits" = (select sum(credits) from "transactions" where "transactions"."user_id" = "users"."id" and "type" = ?) where "id" = ?', $query);
@@ -86,7 +92,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->once()
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ? returning *', $query);
@@ -107,7 +116,10 @@ class BuilderTest extends TestCase
         $type = 'foo';
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->once()
             ->withArgs(function ($query, $bindings) use ($id, $type) {
                 self::assertSame('update "users" set "credits" = (select sum(credits) from "transactions" where "transactions"."user_id" = "users"."id" and "type" = ?) where "id" = ? returning *', $query);
@@ -136,7 +148,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('delete')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('delete')
             ->once()
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
@@ -156,7 +171,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('delete')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('delete')
             ->once()
             ->withArgs(function ($query, $bindings) use ($id) {
                 self::assertSame('delete from "tests" where "tests"."id" = ?', $query);
@@ -176,7 +194,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->once()
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
@@ -197,7 +218,10 @@ class BuilderTest extends TestCase
         $expected = 1;
 
         $builder = $this->getBuilder();
-        $builder->getConnection()->shouldReceive('select')
+
+        /** @var Mockery\MockInterface $connection */
+        $connection = $builder->getConnection();
+        $connection->shouldReceive('select')
             ->once()
             ->withArgs(function ($query, $bindings) use ($x, $expected) {
                 self::assertSame('delete from "tests" where "x" = ? and "tests"."id" = ? returning *', $query);

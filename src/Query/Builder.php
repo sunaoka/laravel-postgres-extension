@@ -83,7 +83,7 @@ class Builder extends \Illuminate\Database\Query\Builder
         // ID to let developers to simply and quickly remove a single row from this
         // database without manually specifying the "where" clauses on the query.
         if (! is_null($id)) {
-            $this->where($this->from.'.id', '=', $id);
+            $this->where($this->from.'.id', '=', $id);  // @phpstan-ignore binaryOp.invalid
         }
 
         $this->applyBeforeQueryCallbacks();

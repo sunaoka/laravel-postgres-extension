@@ -2,8 +2,6 @@
 
 namespace Sunaoka\LaravelPostgres\Connectors;
 
-use Illuminate\Support\Facades\Config;
-
 class PostgresConnector extends \Illuminate\Database\Connectors\PostgresConnector
 {
     /**
@@ -16,7 +14,7 @@ class PostgresConnector extends \Illuminate\Database\Connectors\PostgresConnecto
     {
         $dsn = parent::getDsn($config);
 
-        $dsn .= Config::get('postgres-extension.additional_dns_string');
+        $dsn .= config('postgres-extension.additional_dns_string');
 
         return $dsn;
     }
