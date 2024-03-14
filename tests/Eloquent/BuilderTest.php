@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Tests\Eloquent;
 
 use Carbon\Carbon;
+use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Processors\Processor;
 use Mockery;
 use Sunaoka\LaravelPostgres\Eloquent\Builder;
-use Sunaoka\LaravelPostgres\PostgresConnection;
 use Sunaoka\LaravelPostgres\Query\Builder as QueryBuilder;
 use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
 use Sunaoka\LaravelPostgres\Tests\Models\TestModel;
@@ -17,18 +19,26 @@ class BuilderTest extends TestCase
 {
     private const NOW = '2021-07-21 19:38:17';
 
-    /**
-     * @var Mockery\MockInterface|PostgresConnection
-     */
-    private $connection;
-
     protected function setUp(): void
     {
         parent::setUp();
 
         Carbon::setTestNow(self::NOW);
+    }
 
-        $this->connection = Mockery::mock(PostgresConnection::class)->makePartial();
+    /**
+     * @return Builder<\Sunaoka\LaravelPostgres\Eloquent\Model>
+     */
+    protected function getBuilder(): Builder
+    {
+        $connection = Mockery::mock(ConnectionInterface::class);
+        $connection->shouldReceive('getDatabaseName')->andReturn('database');
+        $connection->shouldReceive('getName')->andReturn('pgsql');
+
+        $grammar = new PostgresGrammar();
+        $processor = Mockery::mock(Processor::class);
+
+        return new Builder(new QueryBuilder($connection, $grammar, $processor));
     }
 
     public function testUpdate(): void
@@ -36,7 +46,8 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $this->connection->shouldReceive('update')
+        $builder = $this->getBuilder();
+        $builder->getConnection()->shouldReceive('update')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ?', $query);
                 self::assertSame([$x, self::NOW], $bindings);
@@ -44,7 +55,6 @@ class BuilderTest extends TestCase
             })
             ->andReturn($expected);
 
-        $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
         $builder->setModel(new TestModel());
         $actual = $builder->update(['x' => $x]);
 
@@ -56,7 +66,8 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $this->connection->shouldReceive('select')
+        $builder = $this->getBuilder();
+        $builder->getConnection()->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ? returning *', $query);
                 self::assertSame([$x, self::NOW], $bindings);
@@ -64,11 +75,11 @@ class BuilderTest extends TestCase
             })
             ->andReturn([['id' => $expected]]);
 
-        $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
         $builder->setModel(new TestModel());
 
-        /** @var \Illuminate\Database\Eloquent\Collection<int, TestModel> $actual */
         $actual = $builder->returning(['*'])->update(['x' => $x]);
+
+        self::assertInstanceOf(Collection::class, $actual);
 
         $model = $actual->first();
 
@@ -76,13 +87,13 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $model->id);
     }
 
-
     public function testDelete(): void
     {
         $x = 10;
         $expected = 1;
 
-        $this->connection->shouldReceive('delete')
+        $builder = $this->getBuilder();
+        $builder->getConnection()->shouldReceive('delete')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
                 self::assertSame([$x], $bindings);
@@ -90,7 +101,6 @@ class BuilderTest extends TestCase
             })
             ->andReturn($expected);
 
-        $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
         $builder->setModel(new TestModel());
         $actual = $builder->where('x', $x)->delete();
 
@@ -102,7 +112,8 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $this->connection->shouldReceive('select')
+        $builder = $this->getBuilder();
+        $builder->getConnection()->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
                 self::assertSame([$x], $bindings);
@@ -110,10 +121,11 @@ class BuilderTest extends TestCase
             })
             ->andReturn([['id' => $expected]]);
 
-        $builder = new Builder(new QueryBuilder($this->connection, new PostgresGrammar()));
         $builder->setModel(new TestModel());
-        /** @var \Illuminate\Database\Eloquent\Collection<int, TestModel> $actual */
+
         $actual = $builder->returning(['*'])->where('x', $x)->delete();
+
+        self::assertInstanceOf(Collection::class, $actual);
 
         $model = $actual->first();
 
