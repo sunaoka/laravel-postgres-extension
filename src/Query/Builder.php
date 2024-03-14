@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Query;
 
+use Illuminate\Database\Query\Expression;
+
 /**
  * @property \Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar  $grammar
  */
