@@ -54,6 +54,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ?', $query);
                 self::assertSame([$x, self::NOW], $bindings);
+
                 return true;
             })
             ->andReturn($expected);
@@ -77,6 +78,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?, "updated_at" = ? returning *', $query);
                 self::assertSame([$x, self::NOW], $bindings);
+
                 return true;
             })
             ->andReturn([['id' => $expected]]);
@@ -106,6 +108,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn($expected);
@@ -129,6 +132,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn([['id' => $expected]]);

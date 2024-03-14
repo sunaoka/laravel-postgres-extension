@@ -7,7 +7,7 @@ namespace Sunaoka\LaravelPostgres\Query;
 use Illuminate\Database\Query\Expression;
 
 /**
- * @property \Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar  $grammar
+ * @property \Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar $grammar
  */
 class Builder extends \Illuminate\Database\Query\Builder
 {
@@ -17,7 +17,6 @@ class Builder extends \Illuminate\Database\Query\Builder
     public $returning = [];
 
     /**
-     * @param  array  $columns
      * @return $this
      */
     public function returning(array $columns = []): self
@@ -30,7 +29,6 @@ class Builder extends \Illuminate\Database\Query\Builder
     /**
      * Update records in the database.
      *
-     * @param  array  $values
      * @return int|array
      */
     public function update(array $values)
@@ -88,15 +86,16 @@ class Builder extends \Illuminate\Database\Query\Builder
 
         $this->applyBeforeQueryCallbacks();
 
-        $query = $this->grammar->compileDelete($this);
+        $sql = $this->grammar->compileDelete($this);
+
         $bindings = $this->cleanBindings(
             $this->grammar->prepareBindingsForDelete($this->bindings)
         );
 
         if (empty($this->returning)) {
-            return $this->connection->delete($query, $bindings);
+            return $this->connection->delete($sql, $bindings);
         }
 
-        return $this->connection->select($query, $bindings);
+        return $this->connection->select($sql, $bindings);
     }
 }

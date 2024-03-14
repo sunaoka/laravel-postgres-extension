@@ -23,7 +23,7 @@ class TsRangeCastTest extends TestCase
         $cast = new TsRangeCast();
         $actual = $cast->get(new TestModel(), 'term', '[2020-10-01 00:00:00,2020-10-01 23:59:59)', []);
 
-        self::assertSame('[2020-10-01 00:00:00,2020-10-01 23:59:59)', (string)$actual);
+        self::assertSame('[2020-10-01 00:00:00,2020-10-01 23:59:59)', (string) $actual);
 
         $actual = $cast->get(new TestModel(), 'term', '', []);
 

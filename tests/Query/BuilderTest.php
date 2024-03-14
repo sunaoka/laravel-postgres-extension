@@ -46,6 +46,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ?', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn($expected);
@@ -70,6 +71,7 @@ class BuilderTest extends TestCase
                 self::assertSame('update "users" set "credits" = (select sum(credits) from "transactions" where "transactions"."user_id" = "users"."id" and "type" = ?) where "id" = ?', $query);
                 self::assertSame($type, $bindings[0]()[0]);
                 self::assertSame($id, $bindings[1]);
+
                 return true;
             })
             ->andReturn(1);
@@ -100,6 +102,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('update "tests" set "x" = ? returning *', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn(['id' => $expected]);
@@ -125,6 +128,7 @@ class BuilderTest extends TestCase
                 self::assertSame('update "users" set "credits" = (select sum(credits) from "transactions" where "transactions"."user_id" = "users"."id" and "type" = ?) where "id" = ? returning *', $query);
                 self::assertSame($type, $bindings[0]()[0]);
                 self::assertSame($id, $bindings[1]);
+
                 return true;
             })
             ->andReturn(1);
@@ -156,6 +160,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ?', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn($expected);
@@ -179,6 +184,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($id) {
                 self::assertSame('delete from "tests" where "tests"."id" = ?', $query);
                 self::assertSame([$id], $bindings);
+
                 return true;
             })
             ->andReturn($expected);
@@ -202,6 +208,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x) {
                 self::assertSame('delete from "tests" where "x" = ? returning *', $query);
                 self::assertSame([$x], $bindings);
+
                 return true;
             })
             ->andReturn(['id' => $expected]);
@@ -226,6 +233,7 @@ class BuilderTest extends TestCase
             ->withArgs(function ($query, $bindings) use ($x, $expected) {
                 self::assertSame('delete from "tests" where "x" = ? and "tests"."id" = ? returning *', $query);
                 self::assertSame([$x, $expected], $bindings);
+
                 return true;
             })
             ->andReturn(['id' => $expected]);

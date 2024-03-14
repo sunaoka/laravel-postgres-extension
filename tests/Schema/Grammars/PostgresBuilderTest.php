@@ -42,28 +42,27 @@ class PostgresBuilderTest extends TestCase
              * @link https://github.com/laravel/framework/pull/48357
              *
              * [11.x] Add support for modifying generated columns
-             *
              * @link https://github.com/laravel/framework/pull/50329
              */
             $columns = [
                 (object) [
-                    'name'      => 'id',
+                    'name' => 'id',
                     'type_name' => 'int8',
-                    'type'      => 'bigint',
+                    'type' => 'bigint',
                     'collation' => null,
-                    'nullable'  => false,
-                    'default'   => null,
-                    'comment'   => null,
+                    'nullable' => false,
+                    'default' => null,
+                    'comment' => null,
                     'generated' => null,
                 ],
                 (object) [
-                    'name'      => 'x',
+                    'name' => 'x',
                     'type_name' => 'text',
-                    'type'      => 'text',
+                    'type' => 'text',
                     'collation' => '',
-                    'nullable'  => false,
-                    'default'   => null,
-                    'comment'   => null,
+                    'nullable' => false,
+                    'default' => null,
+                    'comment' => null,
                     'generated' => null,
                 ],
             ];

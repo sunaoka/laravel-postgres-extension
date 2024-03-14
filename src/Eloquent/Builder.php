@@ -6,9 +6,11 @@ namespace Sunaoka\LaravelPostgres\Eloquent;
 
 /**
  * @template TModelClass of \Sunaoka\LaravelPostgres\Eloquent\Model
+ *
  * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
  *
  * @method \Sunaoka\LaravelPostgres\Query\Builder toBase()
+ *
  * @mixin \Sunaoka\LaravelPostgres\Query\Builder
  */
 class Builder extends \Illuminate\Database\Eloquent\Builder
@@ -16,7 +18,6 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     /**
      * Update records in the database.
      *
-     * @param  array  $values
      * @return int|\Illuminate\Database\Eloquent\Collection<int, TModelClass>|null
      */
     public function update(array $values)
@@ -27,13 +28,13 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
         }
 
         /** @var array $result */
-        return !empty($result) ? $this->hydrate($result) : null;
+        return ! empty($result) ? $this->hydrate($result) : null;
     }
 
     /**
      * Delete records from the database.
      *
-     * @return mixed
+     * @return mixed|\Illuminate\Database\Eloquent\Collection<int, TModelClass>
      */
     public function delete()
     {
@@ -43,6 +44,6 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
         }
 
         /** @var array $result */
-        return !empty($result) ? $this->hydrate($result) : null;
+        return ! empty($result) ? $this->hydrate($result) : null;
     }
 }

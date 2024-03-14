@@ -15,8 +15,6 @@ use Sunaoka\LaravelPostgres\Types\TsRange;
 class TsRangeCast extends RangeCast
 {
     /**
-     * @param array $matches
-     *
      * @return TsRange
      */
     public function factory(array $matches): Range

@@ -18,11 +18,9 @@ abstract class RangeCast implements CastsAttributes
     /**
      * Transform the attribute from the underlying model values.
      *
-     * @param \Sunaoka\LaravelPostgres\Eloquent\Model $model
-     * @param string                                  $key
-     * @param string                                  $value
-     * @param array<string, mixed>                    $attributes
-     *
+     * @param  \Sunaoka\LaravelPostgres\Eloquent\Model  $model
+     * @param  string  $value
+     * @param  array<string, mixed>  $attributes
      * @return TGet|null
      */
     public function get($model, string $key, $value, array $attributes)
@@ -39,25 +37,18 @@ abstract class RangeCast implements CastsAttributes
     /**
      * Transform the attribute to its underlying model values.
      *
-     * @param \Sunaoka\LaravelPostgres\Eloquent\Model $model
-     * @param string                                  $key
-     * @param TSet|null                               $value
-     * @param array<string, mixed>                    $attributes
-     *
+     * @param  \Sunaoka\LaravelPostgres\Eloquent\Model  $model
+     * @param  TSet|null  $value
+     * @param  array<string, mixed>  $attributes
      * @return null[]|string[]
      */
     public function set($model, string $key, $value, array $attributes)
     {
         return [
-            $key => ($value !== null) ? (string)$value : null,
+            $key => ($value !== null) ? (string) $value : null,
         ];
     }
 
-    /**
-     * @param string $value
-     *
-     * @return array
-     */
     protected function parse(string $value): array
     {
         $matches = [];
@@ -67,8 +58,6 @@ abstract class RangeCast implements CastsAttributes
     }
 
     /**
-     * @param array $matches
-     *
      * @return TGet
      */
     abstract public function factory(array $matches): Range;

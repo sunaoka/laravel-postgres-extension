@@ -6,9 +6,6 @@ class PostgresConnector extends \Illuminate\Database\Connectors\PostgresConnecto
 {
     /**
      * Create a DSN string from a configuration.
-     *
-     * @param  array  $config
-     * @return string
      */
     protected function getDsn(array $config): string
     {

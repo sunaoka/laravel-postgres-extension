@@ -12,6 +12,7 @@ use Sunaoka\LaravelPostgres\Types\Range;
 /**
  * @property array $json
  * @property Range $term
+ *
  * @method static Builder|self make($attributes = [])
  */
 class TestModel extends Model

@@ -12,7 +12,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Compile a returning clause.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
     public function compileReturning(Builder $query)
@@ -22,6 +21,7 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
             $returning = collect($query->returning)->map(function ($value) {
                 return $this->wrap($value);
             })->implode(', ');
+
             return "returning {$returning}";
         }
 
@@ -31,8 +31,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Compile an update statement into SQL.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  array  $values
      * @return string
      */
     public function compileUpdate(Builder $query, array $values)
@@ -46,8 +44,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Prepare the bindings for an update statement.
      *
-     * @param  array  $bindings
-     * @param  array  $values
      * @return array
      */
     public function prepareBindingsForUpdate(array $bindings, array $values)
@@ -68,7 +64,6 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     /**
      * Compile a delete statement into SQL.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
     public function compileDelete(Builder $query)
