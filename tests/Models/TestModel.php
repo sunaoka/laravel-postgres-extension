@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Tests\Models;
 
-use Sunaoka\LaravelPostgres\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Sunaoka\LaravelPostgres\Eloquent\Casts\Int4RangeCast;
 use Sunaoka\LaravelPostgres\Eloquent\Casts\TsRangeCast;
-use Sunaoka\LaravelPostgres\Eloquent\Model;
-use Sunaoka\LaravelPostgres\Types\Range;
+use Sunaoka\LaravelPostgres\Types\Int4Range;
+use Sunaoka\LaravelPostgres\Types\TsRange;
 
 /**
  * @property array $json
- * @property Range $term
- *
- * @method static Builder|self make($attributes = [])
+ * @property TsRange $ts_range
+ * @property Int4Range $int4_range
  */
 class TestModel extends Model
 {
@@ -21,11 +21,13 @@ class TestModel extends Model
 
     protected $fillable = [
         'json',
-        'term',
+        'ts_range',
+        'int4_range',
     ];
 
     protected $casts = [
         'json' => 'json',
-        'term' => TsRangeCast::class,
+        'ts_range' => TsRangeCast::class,
+        'int4_range' => Int4RangeCast::class,
     ];
 }
