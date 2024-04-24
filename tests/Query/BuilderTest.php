@@ -4,29 +4,13 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Tests\Query;
 
-use Illuminate\Database\ConnectionInterface;
-use Illuminate\Database\Query\Processors\Processor;
-use Mockery;
-use Sunaoka\LaravelPostgres\Query\Builder;
-use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
 use Sunaoka\LaravelPostgres\Tests\TestCase;
 
 class BuilderTest extends TestCase
 {
-    protected function getBuilder(): Builder
-    {
-        $connection = Mockery::mock(ConnectionInterface::class);
-        $connection->shouldReceive('getDatabaseName')->andReturn('database');
-
-        $grammar = new PostgresGrammar();
-        $processor = Mockery::mock(Processor::class);
-
-        return new Builder($connection, $grammar, $processor);
-    }
-
     public function testReturning(): void
     {
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
         $builder->from('tests')->returning(['*']);
 
         self::assertSame(['*'], $builder->returning);
@@ -37,9 +21,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('update')
             ->once()
@@ -61,9 +45,9 @@ class BuilderTest extends TestCase
         $id = 10;
         $type = 'foo';
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('update')
             ->once()
@@ -79,7 +63,7 @@ class BuilderTest extends TestCase
         $actual = $builder->from('users')
             ->where('id', '=', $id)
             ->update([
-                'credits' => $this->getBuilder()->from('transactions')
+                'credits' => $this->getQueryBuilder()->from('transactions')
                     ->selectRaw('sum(credits)')
                     ->whereColumn('transactions.user_id', '=', 'users.id')
                     ->where('type', '=', $type),
@@ -93,9 +77,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->once()
@@ -118,9 +102,9 @@ class BuilderTest extends TestCase
         $id = 10;
         $type = 'foo';
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->once()
@@ -137,7 +121,7 @@ class BuilderTest extends TestCase
             ->returning(['*'])
             ->where('id', '=', $id)
             ->update([
-                'credits' => $this->getBuilder()->from('transactions')
+                'credits' => $this->getQueryBuilder()->from('transactions')
                     ->selectRaw('sum(credits)')
                     ->whereColumn('transactions.user_id', '=', 'users.id')
                     ->where('type', '=', $type),
@@ -151,9 +135,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('delete')
             ->once()
@@ -175,9 +159,9 @@ class BuilderTest extends TestCase
         $id = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('delete')
             ->once()
@@ -199,9 +183,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->once()
@@ -224,9 +208,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getQueryBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->once()

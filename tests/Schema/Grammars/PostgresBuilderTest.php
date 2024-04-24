@@ -6,7 +6,6 @@ namespace Sunaoka\LaravelPostgres\Tests\Schema\Grammars;
 
 use Illuminate\Database\Query\Processors\PostgresProcessor;
 use Illuminate\Support\Facades\Config;
-use Mockery;
 use Sunaoka\LaravelPostgres\PostgresConnection;
 use Sunaoka\LaravelPostgres\Schema\Grammars\PostgresGrammar;
 use Sunaoka\LaravelPostgres\Schema\PostgresBuilder;
@@ -15,7 +14,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 class PostgresBuilderTest extends TestCase
 {
     /**
-     * @var Mockery\MockInterface|PostgresConnection
+     * @var \Mockery\MockInterface|PostgresConnection
      */
     private $connection;
 
@@ -23,7 +22,7 @@ class PostgresBuilderTest extends TestCase
     {
         parent::setUp();
 
-        $this->connection = Mockery::mock(PostgresConnection::class)->makePartial();
+        $this->connection = \Mockery::mock(PostgresConnection::class)->makePartial();
         $this->connection->setSchemaGrammar(new PostgresGrammar());
         $this->connection->setPostProcessor(new PostgresProcessor());
     }
