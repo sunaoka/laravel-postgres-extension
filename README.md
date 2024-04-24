@@ -23,19 +23,14 @@ php artisan vendor:publish --tag=postgres-extension
 
 ## Features
 
-- Range Types
-    - [ ] int4range — Range of integer
-    - [ ] int8range — Range of bigint
-    - [ ] numrange — Range of numeric
-    - [x] tsrange — Range of timestamp without time zone
-    - [ ] tstzrange — Range of timestamp with time zone
-    - [ ] daterange — Range of date
-
 - [x] RETURNING
     - UPDATE
     - DELETE
 
 - [x] Caching "information_schema" table.
+- 
+- [x] Range Types
+  - Depends on [sunaoka/laravel-postgres-range](https://github.com/sunaoka/laravel-postgres-range)
 
 ## Usage
 
@@ -64,32 +59,6 @@ class SomeModel extends \Sunaoka\LaravelPostgres\Eloquent\Model
         'term' => \Sunaoka\LaravelPostgres\Eloquent\Casts\TsRangeCast::class, // tsrange
     ];
 }
-```
-
-### Range Types
-
-#### tsrange — Range of timestamp without time zone
-
-```php
-$some = new SomeModel();
-$some->code = 'some code';
-$some->term = new TsRange('2020-10-01 00:00:00', '2020-10-01 23:59:59');
-$some->save();
-```
-
-```sql
-insert into "some_models" ("code", "term") values
-  ('some code', '[2020-10-01 00:00:00,2020-10-01 23:59:59)')
-  returning "id";
-```
-
-```php
-$some = SomeModel::find(1);
-
-echo $some->term->lower()->format('Y-m-d H:i:s'); // lower() or from()
-// => 2020-10-01 00:00:00
-echo $some->term->upper()->format('Y-m-d H:i:s'); // upper() or to()
-// => 2020-10-01 23:59:59
 ```
 
 ### RETURNING
@@ -124,3 +93,7 @@ select *
 from information_schema.tables 
 where table_schema = 'public' and table_name = 'some_models'
 ```
+
+### Range Types
+
+see: [sunaoka/laravel-postgres-range](https://github.com/sunaoka/laravel-postgres-range)
