@@ -26,6 +26,7 @@ class TestCase extends BaseTestCase
     {
         $connection = \Mockery::mock(ConnectionInterface::class);
         $connection->shouldReceive('getDatabaseName')->andReturn('database');
+        $connection->shouldReceive('getName')->andReturn('pgsql');
 
         $grammar = new PostgresGrammar();
         $processor = \Mockery::mock(Processor::class);
@@ -38,13 +39,6 @@ class TestCase extends BaseTestCase
      */
     protected function getEloquentBuilder(): EloquentBuilder
     {
-        $connection = \Mockery::mock(ConnectionInterface::class);
-        $connection->shouldReceive('getDatabaseName')->andReturn('database');
-        $connection->shouldReceive('getName')->andReturn('pgsql');
-
-        $grammar = new PostgresGrammar();
-        $processor = \Mockery::mock(Processor::class);
-
-        return new EloquentBuilder(new QueryBuilder($connection, $grammar, $processor));
+        return new EloquentBuilder($this->getQueryBuilder());
     }
 }
