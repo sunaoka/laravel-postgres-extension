@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Tests;
 
 use Illuminate\Support\Facades\Config;
-use ReflectionException;
-use ReflectionMethod;
 use Sunaoka\LaravelPostgres\Connectors\PostgresConnector;
 
 class PostgresConnectorTest extends TestCase
 {
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public function testGetDsn(): void
     {
-        $method = new ReflectionMethod(PostgresConnector::class, 'getDsn');
+        $method = new \ReflectionMethod(PostgresConnector::class, 'getDsn');
         $method->setAccessible(true);
 
         $actual = $method->invoke(new PostgresConnector(), [

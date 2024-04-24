@@ -5,13 +5,7 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Tests\Eloquent;
 
 use Carbon\Carbon;
-use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Query\Processors\Processor;
-use Mockery;
-use Sunaoka\LaravelPostgres\Eloquent\Builder;
-use Sunaoka\LaravelPostgres\Query\Builder as QueryBuilder;
-use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
 use Sunaoka\LaravelPostgres\Tests\Models\TestModel;
 use Sunaoka\LaravelPostgres\Tests\TestCase;
 
@@ -26,29 +20,14 @@ class BuilderTest extends TestCase
         Carbon::setTestNow(self::NOW);
     }
 
-    /**
-     * @return Builder<\Sunaoka\LaravelPostgres\Eloquent\Model>
-     */
-    protected function getBuilder(): Builder
-    {
-        $connection = Mockery::mock(ConnectionInterface::class);
-        $connection->shouldReceive('getDatabaseName')->andReturn('database');
-        $connection->shouldReceive('getName')->andReturn('pgsql');
-
-        $grammar = new PostgresGrammar();
-        $processor = Mockery::mock(Processor::class);
-
-        return new Builder(new QueryBuilder($connection, $grammar, $processor));
-    }
-
     public function testUpdate(): void
     {
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getEloquentBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('update')
             ->withArgs(function ($query, $bindings) use ($x) {
@@ -70,9 +49,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getEloquentBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
@@ -100,9 +79,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getEloquentBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('delete')
             ->withArgs(function ($query, $bindings) use ($x) {
@@ -124,9 +103,9 @@ class BuilderTest extends TestCase
         $x = 10;
         $expected = 1;
 
-        $builder = $this->getBuilder();
+        $builder = $this->getEloquentBuilder();
 
-        /** @var Mockery\MockInterface $connection */
+        /** @var \Mockery\MockInterface $connection */
         $connection = $builder->getConnection();
         $connection->shouldReceive('select')
             ->withArgs(function ($query, $bindings) use ($x) {
