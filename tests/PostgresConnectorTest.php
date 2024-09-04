@@ -17,7 +17,7 @@ class PostgresConnectorTest extends TestCase
         $method = new \ReflectionMethod(PostgresConnector::class, 'getDsn');
         $method->setAccessible(true);
 
-        $actual = $method->invoke(new PostgresConnector(), [
+        $actual = $method->invoke(new PostgresConnector, [
             'database' => 'forge',
         ]);
 
@@ -25,7 +25,7 @@ class PostgresConnectorTest extends TestCase
 
         Config::set('postgres-extension.additional_dns_string', ";application_name='Laravel'");
 
-        $actual = $method->invoke(new PostgresConnector(), [
+        $actual = $method->invoke(new PostgresConnector, [
             'database' => 'forge',
         ]);
 

@@ -11,7 +11,7 @@ class ModelTest extends TestCase
 {
     public function testNewEloquentBuilder(): void
     {
-        $model = new TestModel();
+        $model = new TestModel;
         $actual = $model->newEloquentBuilder($this->getQueryBuilder());
 
         self::assertInstanceOf(\Sunaoka\LaravelPostgres\Eloquent\Builder::class, $actual);
