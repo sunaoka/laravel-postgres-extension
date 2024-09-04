@@ -38,7 +38,7 @@ class BuilderTest extends TestCase
             })
             ->andReturn($expected);
 
-        $builder->setModel(new TestModel());
+        $builder->setModel(new TestModel);
         $actual = $builder->update(['x' => $x]);
 
         self::assertSame($expected, $actual);
@@ -62,7 +62,7 @@ class BuilderTest extends TestCase
             })
             ->andReturn([['id' => $expected]]);
 
-        $builder->setModel(new TestModel());
+        $builder->setModel(new TestModel);
 
         $actual = $builder->returning(['*'])->update(['x' => $x]);
 
@@ -92,7 +92,7 @@ class BuilderTest extends TestCase
             })
             ->andReturn($expected);
 
-        $builder->setModel(new TestModel());
+        $builder->setModel(new TestModel);
         $actual = $builder->where('x', $x)->delete();
 
         self::assertSame($expected, $actual);
@@ -116,7 +116,7 @@ class BuilderTest extends TestCase
             })
             ->andReturn([['id' => $expected]]);
 
-        $builder->setModel(new TestModel());
+        $builder->setModel(new TestModel);
 
         $actual = $builder->returning(['*'])->where('x', $x)->delete();
 

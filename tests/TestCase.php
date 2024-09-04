@@ -28,7 +28,7 @@ class TestCase extends BaseTestCase
         $connection->shouldReceive('getDatabaseName')->andReturn('database');
         $connection->shouldReceive('getName')->andReturn('pgsql');
 
-        $grammar = new PostgresGrammar();
+        $grammar = new PostgresGrammar;
         $processor = \Mockery::mock(Processor::class);
 
         return new QueryBuilder($connection, $grammar, $processor);

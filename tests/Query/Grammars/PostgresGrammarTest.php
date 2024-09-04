@@ -14,7 +14,7 @@ class PostgresGrammarTest extends TestCase
     public function testCompileUpdate(): void
     {
         /** @var Builder $builder */
-        $builder = DB::table((new TestModel())->getTable());
+        $builder = DB::table((new TestModel)->getTable());
 
         $actual = $builder->getGrammar()->compileUpdate(
             $builder->where('id', 1)->returning(['*']),
@@ -29,7 +29,7 @@ class PostgresGrammarTest extends TestCase
     public function testCompileUpdateWithoutReturning(): void
     {
         /** @var Builder $builder */
-        $builder = DB::table((new TestModel())->getTable());
+        $builder = DB::table((new TestModel)->getTable());
 
         $actual = $builder->getGrammar()->compileUpdate(
             $builder->where('id', 1),
@@ -44,7 +44,7 @@ class PostgresGrammarTest extends TestCase
     public function testCompileDelete(): void
     {
         /** @var Builder $builder */
-        $builder = DB::table((new TestModel())->getTable());
+        $builder = DB::table((new TestModel)->getTable());
 
         $actual = $builder->getGrammar()->compileDelete(
             $builder->where('id', 1)->returning(['*'])
@@ -58,7 +58,7 @@ class PostgresGrammarTest extends TestCase
     public function testCompileDeleteWithoutReturning(): void
     {
         /** @var Builder $builder */
-        $builder = DB::table((new TestModel())->getTable());
+        $builder = DB::table((new TestModel)->getTable());
 
         $actual = $builder->getGrammar()->compileDelete(
             $builder->where('id', 1)
@@ -72,7 +72,7 @@ class PostgresGrammarTest extends TestCase
     public function testPrepareBindingsForUpdate(): void
     {
         /** @var Builder $builder */
-        $builder = DB::table((new TestModel())->getTable());
+        $builder = DB::table((new TestModel)->getTable());
 
         $actual = $builder->getGrammar()->prepareBindingsForUpdate(
             $builder->getRawBindings(),

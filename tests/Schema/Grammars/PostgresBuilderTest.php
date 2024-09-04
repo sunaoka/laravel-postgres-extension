@@ -23,8 +23,8 @@ class PostgresBuilderTest extends TestCase
         parent::setUp();
 
         $this->connection = \Mockery::mock(PostgresConnection::class)->makePartial();
-        $this->connection->setSchemaGrammar(new PostgresGrammar());
-        $this->connection->setPostProcessor(new PostgresProcessor());
+        $this->connection->setSchemaGrammar(new PostgresGrammar);
+        $this->connection->setPostProcessor(new PostgresProcessor);
     }
 
     public function testGetColumnListing(): void
