@@ -1,0 +1,10 @@
+<?php
+
+namespace Sunaoka\LaravelPostgres\Eloquent;
+
+class Builder
+{
+    public function update(array $values): int {}
+
+    public function delete(array $values): int {}
+}

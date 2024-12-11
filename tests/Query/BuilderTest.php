@@ -8,7 +8,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 
 class BuilderTest extends TestCase
 {
-    public function testReturning(): void
+    public function test_returning(): void
     {
         $builder = $this->getQueryBuilder();
         $builder->from('tests')->returning(['*']);
@@ -16,7 +16,7 @@ class BuilderTest extends TestCase
         self::assertSame(['*'], $builder->returning);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $x = 10;
         $expected = 1;
@@ -40,7 +40,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testUpdateSubQuery(): void
+    public function test_update_sub_query(): void
     {
         $id = 10;
         $type = 'foo';
@@ -72,7 +72,7 @@ class BuilderTest extends TestCase
         $this->assertSame(1, $actual);
     }
 
-    public function testUpdateWithReturning(): void
+    public function test_update_with_returning(): void
     {
         $x = 10;
         $expected = 1;
@@ -97,7 +97,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual['id']);
     }
 
-    public function testUpdateSubQueryWithReturning(): void
+    public function test_update_sub_query_with_returning(): void
     {
         $id = 10;
         $type = 'foo';
@@ -130,7 +130,7 @@ class BuilderTest extends TestCase
         $this->assertSame(1, $actual);
     }
 
-    public function testDelete(): void
+    public function test_delete(): void
     {
         $x = 10;
         $expected = 1;
@@ -154,7 +154,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testDeleteWithId(): void
+    public function test_delete_with_id(): void
     {
         $id = 10;
         $expected = 1;
@@ -178,7 +178,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testDeleteWithReturning(): void
+    public function test_delete_with_returning(): void
     {
         $x = 10;
         $expected = 1;
@@ -203,7 +203,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual['id']);
     }
 
-    public function testDeleteWithIdAndReturning(): void
+    public function test_delete_with_id_and_returning(): void
     {
         $x = 10;
         $expected = 1;

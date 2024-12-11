@@ -9,7 +9,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 
 class HasAttributesTest extends TestCase
 {
-    public function testAsJson(): void
+    public function test_as_json(): void
     {
         $model = new TestModel(['json' => ['a' => 1]]);
 

@@ -10,7 +10,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
     /**
      * @param  \Sunaoka\LaravelPostgres\Query\Builder  $query
-     * @return \Sunaoka\LaravelPostgres\Eloquent\Builder<\Sunaoka\LaravelPostgres\Eloquent\Model>
+     * @return \Sunaoka\LaravelPostgres\Eloquent\Builder<*>
      */
     public function newEloquentBuilder($query)
     {

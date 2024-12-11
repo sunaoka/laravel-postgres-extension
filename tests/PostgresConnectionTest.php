@@ -9,7 +9,7 @@ use Sunaoka\LaravelPostgres\Schema\PostgresBuilder;
 
 class PostgresConnectionTest extends TestCase
 {
-    public function testGetSchemaBuilder(): void
+    public function test_get_schema_builder(): void
     {
         $actual = DB::connection()->getSchemaBuilder();
 

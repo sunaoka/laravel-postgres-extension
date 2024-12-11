@@ -10,14 +10,14 @@ trait HasAttributes
      * Encode the given value as JSON.
      *
      * @param  mixed  $value
-     * @return string
+     * @return non-empty-string
      */
     protected function asJson($value)
     {
         /** @var int $flags */
         $flags = config('postgres-extension.json_encode_options');
 
-        /** @var string */
+        /** @var non-empty-string */
         return json_encode($value, $flags);
     }
 }
