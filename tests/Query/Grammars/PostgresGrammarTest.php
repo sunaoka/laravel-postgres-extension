@@ -11,7 +11,7 @@ use Sunaoka\LaravelPostgres\Tests\TestCase;
 
 class PostgresGrammarTest extends TestCase
 {
-    public function testCompileUpdate(): void
+    public function test_compile_update(): void
     {
         /** @var Builder $builder */
         $builder = DB::table((new TestModel)->getTable());
@@ -26,7 +26,7 @@ class PostgresGrammarTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testCompileUpdateWithoutReturning(): void
+    public function test_compile_update_without_returning(): void
     {
         /** @var Builder $builder */
         $builder = DB::table((new TestModel)->getTable());
@@ -41,7 +41,7 @@ class PostgresGrammarTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testCompileDelete(): void
+    public function test_compile_delete(): void
     {
         /** @var Builder $builder */
         $builder = DB::table((new TestModel)->getTable());
@@ -55,7 +55,7 @@ class PostgresGrammarTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testCompileDeleteWithoutReturning(): void
+    public function test_compile_delete_without_returning(): void
     {
         /** @var Builder $builder */
         $builder = DB::table((new TestModel)->getTable());
@@ -69,7 +69,7 @@ class PostgresGrammarTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testPrepareBindingsForUpdate(): void
+    public function test_prepare_bindings_for_update(): void
     {
         /** @var Builder $builder */
         $builder = DB::table((new TestModel)->getTable());

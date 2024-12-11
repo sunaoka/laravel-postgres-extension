@@ -12,7 +12,7 @@ class PostgresConnectorTest extends TestCase
     /**
      * @throws \ReflectionException
      */
-    public function testGetDsn(): void
+    public function test_get_dsn(): void
     {
         $method = new \ReflectionMethod(PostgresConnector::class, 'getDsn');
         $method->setAccessible(true);

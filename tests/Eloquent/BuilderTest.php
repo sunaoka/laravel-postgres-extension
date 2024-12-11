@@ -20,7 +20,7 @@ class BuilderTest extends TestCase
         Carbon::setTestNow(self::NOW);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $x = 10;
         $expected = 1;
@@ -44,7 +44,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testUpdateWithReturning(): void
+    public function test_update_with_returning(): void
     {
         $x = 10;
         $expected = 1;
@@ -74,7 +74,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $model->id);
     }
 
-    public function testDelete(): void
+    public function test_delete(): void
     {
         $x = 10;
         $expected = 1;
@@ -98,7 +98,7 @@ class BuilderTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testDeleteWithReturning(): void
+    public function test_delete_with_returning(): void
     {
         $x = 10;
         $expected = 1;

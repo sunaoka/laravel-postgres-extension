@@ -27,7 +27,7 @@ class PostgresBuilderTest extends TestCase
         $this->connection->setPostProcessor(new PostgresProcessor);
     }
 
-    public function testGetColumnListing(): void
+    public function test_get_column_listing(): void
     {
         $expected = [
             'id',
