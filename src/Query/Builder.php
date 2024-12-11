@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres\Query;
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Collection;
+
+use function Illuminate\Support\enum_value;
 
 /**
  * @property \Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar $grammar
@@ -35,14 +38,13 @@ class Builder extends \Illuminate\Database\Query\Builder
     {
         $this->applyBeforeQueryCallbacks();
 
-        /**
-         * [11.x] Allow an update query to have subqueries as values
-         *
-         * @link https://github.com/laravel/framework/pull/50030
-         */
         $values = collect($values)->map(function ($value) {
             if (! $value instanceof Builder) {
-                return ['value' => $value, 'bindings' => $value];
+                return ['value' => $value, 'bindings' => match (true) {
+                    $value instanceof Collection => $value->all(),
+                    class_exists('\UnitEnum') && $value instanceof \UnitEnum => enum_value($value),
+                    default => $value,
+                }];
             }
 
             [$query, $bindings] = $this->parseSub($value);
