@@ -19,7 +19,7 @@ class PostgresConnection extends \Illuminate\Database\PostgresConnection
     protected function getDefaultQueryGrammar()
     {
         $grammar = new PostgresGrammar;
-        if (method_exists($grammar, 'setConnection')) {
+        if (method_exists($grammar, 'setConnection')) {  // @phpstan-ignore function.alreadyNarrowedType
             $grammar->setConnection($this);
         }
 
@@ -48,7 +48,7 @@ class PostgresConnection extends \Illuminate\Database\PostgresConnection
     protected function getDefaultSchemaGrammar()
     {
         $grammar = new SchemaGrammar;
-        if (method_exists($grammar, 'setConnection')) {
+        if (method_exists($grammar, 'setConnection')) {  // @phpstan-ignore function.alreadyNarrowedType
             $grammar->setConnection($this);
         }
 
