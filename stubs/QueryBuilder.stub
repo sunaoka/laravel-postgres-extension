@@ -1,0 +1,21 @@
+<?php
+
+namespace Sunaoka\LaravelPostgres\Query;
+
+/**
+ * @template TModel of \Sunaoka\LaravelPostgres\Eloquent\Model
+ */
+class Builder
+{
+    /**
+     * @param  array<model-property<TModel>, mixed>  $values
+     * @return \Illuminate\Database\Eloquent\Collection<int, TModel>|null
+     */
+    public function update(array $values): ?\Illuminate\Database\Eloquent\Collection {}
+
+    /**
+     * @param  array<model-property<TModel>, mixed>  $values
+     * @return \Illuminate\Database\Eloquent\Collection<int, TModel>|null
+     */
+    public function delete(array $values): ?\Illuminate\Database\Eloquent\Collection {}
+}

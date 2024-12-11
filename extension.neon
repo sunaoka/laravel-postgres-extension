@@ -1,0 +1,4 @@
+parameters:
+    stubFiles:
+        - stubs/QueryBuilder.stub
+        - stubs/EloquentBuilder.stub
