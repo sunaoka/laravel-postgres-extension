@@ -42,6 +42,11 @@
             ],
             "aliases": {
             }
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
         }
     },
     "config": {
