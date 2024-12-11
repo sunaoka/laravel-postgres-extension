@@ -47,19 +47,13 @@ class Builder extends \Illuminate\Database\Query\Builder
 
             [$query, $bindings] = $this->parseSub($value);
 
-            return ['value' => new Expression("({$query})"), 'bindings' => function () use ($bindings) {
-                return $bindings;
-            }];
+            return ['value' => new Expression("({$query})"), 'bindings' => fn () => $bindings];
         });
 
-        $sql = $this->grammar->compileUpdate($this, $values->map(function ($value) {
-            return $value['value'];
-        })->all());
+        $sql = $this->grammar->compileUpdate($this, $values->map(fn ($value) => $value['value'])->all());
 
         $bindings = $this->cleanBindings(
-            $this->grammar->prepareBindingsForUpdate($this->bindings, $values->map(function ($value) {
-                return $value['bindings'];
-            })->all())
+            $this->grammar->prepareBindingsForUpdate($this->bindings, $values->map(fn ($value) => $value['bindings'])->all())
         );
 
         if (empty($this->returning)) {
