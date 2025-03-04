@@ -23,8 +23,9 @@ class PostgresBuilderTest extends TestCase
         parent::setUp();
 
         $this->connection = \Mockery::mock(PostgresConnection::class)->makePartial();
-        $this->connection->setSchemaGrammar(new PostgresGrammar);
+        $this->connection->setSchemaGrammar(new PostgresGrammar($this->connection));
         $this->connection->setPostProcessor(new PostgresProcessor);
+        $this->connection->shouldReceive('getServerVersion')->andReturn('17.0');
     }
 
     public function test_get_column_listing(): void
