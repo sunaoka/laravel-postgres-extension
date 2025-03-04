@@ -1,4 +1,4 @@
-# Laravel extended PostgreSQL driver for Laravel 8.x to 11
+# Laravel extended PostgreSQL driver for Laravel 8.x to 12
 
 [![Latest Stable Version](https://poser.pugx.org/sunaoka/laravel-postgres-extension/v/stable)](https://packagist.org/packages/sunaoka/laravel-postgres-extension)
 [![License](https://poser.pugx.org/sunaoka/laravel-postgres-extension/license)](https://packagist.org/packages/sunaoka/laravel-postgres-extension)
