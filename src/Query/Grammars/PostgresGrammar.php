@@ -6,6 +6,7 @@ namespace Sunaoka\LaravelPostgres\Query\Grammars;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGrammar
 {
@@ -18,7 +19,7 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
     {
         /** @var \Sunaoka\LaravelPostgres\Query\Builder $query */
         if ($query->returning) {
-            $returning = collect($query->returning)->map(function ($value) {
+            $returning = (new Collection($query->returning))->map(function ($value) {
                 return $this->wrap($value);
             })->implode(', ');
 
@@ -48,9 +49,9 @@ class PostgresGrammar extends \Illuminate\Database\Query\Grammars\PostgresGramma
      */
     public function prepareBindingsForUpdate(array $bindings, array $values)
     {
-        $values = collect($values)->map(function ($value, $column) {
+        $values = (new Collection($values))->map(function ($value, $column) {
             return is_array($value) || ($this->isJsonSelector($column) && ! $this->isExpression($value))
-                ? json_encode($value, (int) config('postgres-extension.json_encode_options'))  // @phpstan-ignore cast.int
+                ? json_encode($value, config()->integer('postgres-extension.json_encode_options', 0))
                 : $value;
         })->all();
 

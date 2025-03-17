@@ -14,10 +14,7 @@ trait HasAttributes
      */
     protected function asJson($value)
     {
-        /** @var int $flags */
-        $flags = config('postgres-extension.json_encode_options');
-
         /** @var non-empty-string */
-        return json_encode($value, $flags);
+        return json_encode($value, config()->integer('postgres-extension.json_encode_options', 0));
     }
 }

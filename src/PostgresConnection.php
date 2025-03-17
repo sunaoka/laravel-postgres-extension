@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelPostgres;
 
 use Sunaoka\LaravelPostgres\Query\Builder as QueryBuilder;
-use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar;
+use Sunaoka\LaravelPostgres\Query\Grammars\PostgresGrammar as QueryGrammar;
 use Sunaoka\LaravelPostgres\Schema\Grammars\PostgresGrammar as SchemaGrammar;
 use Sunaoka\LaravelPostgres\Schema\PostgresBuilder;
 
@@ -14,16 +14,11 @@ class PostgresConnection extends \Illuminate\Database\PostgresConnection
     /**
      * Get the default query grammar instance.
      *
-     * @return PostgresGrammar|\Illuminate\Database\Grammar
+     * @return QueryGrammar|\Illuminate\Database\Query\Grammars\PostgresGrammar
      */
     protected function getDefaultQueryGrammar()
     {
-        $grammar = new PostgresGrammar;
-        if (method_exists($grammar, 'setConnection')) {  // @phpstan-ignore function.alreadyNarrowedType
-            $grammar->setConnection($this);
-        }
-
-        return $this->withTablePrefix($grammar);
+        return new QueryGrammar($this);
     }
 
     /**
@@ -43,16 +38,11 @@ class PostgresConnection extends \Illuminate\Database\PostgresConnection
     /**
      * Get the default schema grammar instance.
      *
-     * @return SchemaGrammar|\Illuminate\Database\Schema\Grammars\PostgresGrammar|\Illuminate\Database\Grammar
+     * @return SchemaGrammar|\Illuminate\Database\Schema\Grammars\PostgresGrammar
      */
     protected function getDefaultSchemaGrammar()
     {
-        $grammar = new SchemaGrammar;
-        if (method_exists($grammar, 'setConnection')) {  // @phpstan-ignore function.alreadyNarrowedType
-            $grammar->setConnection($this);
-        }
-
-        return $this->withTablePrefix($grammar);
+        return new SchemaGrammar($this);
     }
 
     /**

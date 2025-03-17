@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sunaoka\LaravelPostgres\Tests;
 
-use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Processors\Processor;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Sunaoka\LaravelPostgres\Eloquent\Builder as EloquentBuilder;
@@ -24,11 +24,12 @@ class TestCase extends BaseTestCase
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        $connection = \Mockery::mock(ConnectionInterface::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('getDatabaseName')->andReturn('database');
         $connection->shouldReceive('getName')->andReturn('pgsql');
+        $connection->shouldReceive('getTablePrefix')->andReturn('');
 
-        $grammar = new PostgresGrammar;
+        $grammar = new PostgresGrammar($connection);
         $processor = \Mockery::mock(Processor::class);
 
         return new QueryBuilder($connection, $grammar, $processor);

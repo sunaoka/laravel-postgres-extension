@@ -6,6 +6,7 @@ namespace Sunaoka\LaravelPostgres\Query;
 
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
+use UnitEnum;
 
 use function Illuminate\Support\enum_value;
 
@@ -15,11 +16,12 @@ use function Illuminate\Support\enum_value;
 class Builder extends \Illuminate\Database\Query\Builder
 {
     /**
-     * @var array
+     * @var string[]
      */
     public $returning = [];
 
     /**
+     * @param  string[]  $columns
      * @return $this
      */
     public function returning(array $columns = []): self
@@ -38,15 +40,16 @@ class Builder extends \Illuminate\Database\Query\Builder
     {
         $this->applyBeforeQueryCallbacks();
 
-        $values = collect($values)->map(function ($value) {
-            if (! $value instanceof Builder) {
+        $values = (new Collection($values))->map(function ($value) {
+            if (! $value instanceof \Illuminate\Database\Query\Builder) {
                 return ['value' => $value, 'bindings' => match (true) {
                     $value instanceof Collection => $value->all(),
-                    class_exists('\UnitEnum') && $value instanceof \UnitEnum => enum_value($value),
+                    $value instanceof UnitEnum => enum_value($value),
                     default => $value,
                 }];
             }
 
+            /** @var string $query */
             [$query, $bindings] = $this->parseSub($value);
 
             return ['value' => new Expression("({$query})"), 'bindings' => fn () => $bindings];
@@ -77,7 +80,7 @@ class Builder extends \Illuminate\Database\Query\Builder
         // ID to let developers to simply and quickly remove a single row from this
         // database without manually specifying the "where" clauses on the query.
         if (! is_null($id)) {
-            $this->where($this->from.'.id', '=', $id);  // @phpstan-ignore binaryOp.invalid
+            $this->where($this->from.'.id', '=', $id);  // @phpstan-ignore binaryOp.invalid, argument.type
         }
 
         $this->applyBeforeQueryCallbacks();

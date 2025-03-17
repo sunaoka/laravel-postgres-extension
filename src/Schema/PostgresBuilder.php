@@ -16,7 +16,7 @@ class PostgresBuilder extends \Illuminate\Database\Schema\PostgresBuilder
      */
     public function getColumnListing($table)
     {
-        if (config('postgres-extension.information_schema_caching') !== true) {
+        if (config()->boolean('postgres-extension.information_schema_caching', false) !== true) {
             return parent::getColumnListing($table);
         }
 
