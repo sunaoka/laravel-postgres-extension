@@ -1,0 +1,15 @@
+<?php
+
+namespace Illuminate\Database\Eloquent\Concerns;
+
+trait HasGlobalScopes
+{
+    /**
+     * @param  \Illuminate\Database\Eloquent\Scope|(\Closure(\Illuminate\Database\Eloquent\Builder<static>): mixed)|(\Closure(\Sunaoka\LaravelPostgres\Eloquent\Builder<static>): mixed)|string  $scope
+     * @param  \Illuminate\Database\Eloquent\Scope|(\Closure(\Illuminate\Database\Eloquent\Builder<static>): mixed)|(\Closure(\Sunaoka\LaravelPostgres\Eloquent\Builder<static>): mixed)|null  $implementation
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function addGlobalScope($scope, $implementation = null) {}
+}
