@@ -1,4 +1,5 @@
 parameters:
     stubFiles:
-        - stubs/QueryBuilder.stub
         - stubs/EloquentBuilder.stub
+        - stubs/HasGlobalScopes.stub
+        - stubs/QueryBuilder.stub
