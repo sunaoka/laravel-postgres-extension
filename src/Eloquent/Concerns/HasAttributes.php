@@ -12,9 +12,9 @@ trait HasAttributes
      * @param  mixed  $value
      * @return non-empty-string
      */
-    protected function asJson($value)
+    protected function asJson($value, $flags = 0)
     {
         /** @var non-empty-string */
-        return json_encode($value, config()->integer('postgres-extension.json_encode_options', 0));
+        return json_encode($value, $flags | config()->integer('postgres-extension.json_encode_options', 0));
     }
 }
