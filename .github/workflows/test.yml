@@ -11,14 +11,14 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      latest_php: 8.4
+      latest_php: 8.5
       latest_laravel: 12
 
     strategy:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        php: [ '8.2', '8.3', '8.4' ]
+        php: [ '8.2', '8.3', '8.4', '8.5' ]
         laravel: [ 12 ]
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
